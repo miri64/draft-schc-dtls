@@ -8,16 +8,16 @@ number:
 date:
 consensus: true
 v: 3
-area: INT
-workgroup: SCHC
+area: "Internet"
+workgroup: "Static Context Header Compression"
 keyword:
  - Internet-Draft
  - SCHC
  - DTLS
 venue:
-  group: SCHC
-  type: Working Group
-  mail: schc@ietf.org
+  group: "Static Context Header Compression"
+  type: "Working Group"
+  mail: "schc@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/schc/"
   github: "miri64/draft-schc-dtls"
   latest: "https://miri64.github.io/draft-schc-dtls/draft-lenders-schc-dtls.html"
