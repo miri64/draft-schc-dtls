@@ -1,0 +1,93 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-07-26T02:10:48.519874+00:00",
+  "repo": "miri64/draft-schc-dtls",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOTiDRPM8AAAABKCSd0Q",
+      "title": "Improve description of DTLS 1.3 header fields",
+      "url": "https://github.com/miri64/draft-schc-dtls/issues/1",
+      "state": "OPEN",
+      "author": "gloinul",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Looking at the current state of the draft I think there are several shortcommings when it comes to covering DTLS 1.3:\n- Epoch is 2-bits, not bytes in the header, but the full version internal state field are actually 64-bit variables.\n- The type is not at all visible in DTLS 1.3, it is inside the crypto envelope.\n- Also the DTLS 1.3 unified header I think variable format also creates some challenges depending on how it is configured as there are several versions depending on sequence number length, Length fields presence as well as the Connection ID field. \n\nLooking at Figure 3 in https://www.rfc-editor.org/rfc/rfc9147.html#name-the-dtls-record-layer for DTLS 1.3 there is little in the DTLScipherText header that is compressible, at least efficiently. Which parts of the field do you expect to be able to compress? Is it primarily to shorten the filed using LSB CDA?  ",
+      "createdAt": "2026-07-24T12:34:53Z",
+      "updatedAt": "2026-07-24T14:14:13Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "OWNER",
+          "body": "Ah, I see. Yes, like [the paper it was based on](https://ieeexplore.ieee.org/document/10051055), my implementation in https://github.com/openschc/openschc/pull/172 was DTLS 1.2 only. Seems like I interpreted the usage of `DTLSPlaintext` in DTLS 1.3 wrong when typing up my initial thoughts this morning. Will have a closer look at RFC 9147 before continuing with DTLS 1.3 in this draft.",
+          "createdAt": "2026-07-24T13:19:59Z",
+          "updatedAt": "2026-07-24T13:20:22Z"
+        },
+        {
+          "author": "gloinul",
+          "authorAssociation": "NONE",
+          "body": "Yes, DTLS 1.3 has some tricks, which include to hide the type inside and only expose this unified header, the rest is all encrypted. So definitely different from 1.2. ",
+          "createdAt": "2026-07-24T13:29:25Z",
+          "updatedAt": "2026-07-24T13:29:25Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "OWNER",
+          "body": "[Samar's talk on QUIC compression today](https://notes.ietf.org/notes-ietf-126-schc#1520-SCHC-Compression-of-QUIC-Frame-Metadata-5-min), combined with the core ideas of [our EuroS&P paper](https://arxiv.org/abs/2606.10097https://arxiv.org/abs/2606.10097) actually gave me some thoughts of how we might be able to use SCHC to _obfuscate_ the CID. Will need to look into this first, though.",
+          "createdAt": "2026-07-24T14:13:51Z",
+          "updatedAt": "2026-07-24T14:14:13Z"
+        }
+      ]
+    }
+  ],
+  "pulls": []
+}
