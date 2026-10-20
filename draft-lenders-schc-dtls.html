@@ -9,25 +9,25 @@
 <meta content="
        This document specifies a compression scheme for Datagram Transport Layer Security (DTLS) datagrams in Static Header Compression (SCHC). 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="SCHC" name="keyword">
 <meta content="DTLS" name="keyword">
 <meta content="draft-lenders-schc-dtls-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
-    Python 3.14.5
-    ConfigArgParse 1.7.5
+  xml2rfc 3.34.1
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.10.1
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.9.2
 -->
 <link href="draft-lenders-schc-dtls.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -63,7 +63,6 @@
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -112,7 +111,6 @@
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -177,7 +175,6 @@
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -1046,11 +1043,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SCHC Compression of DTLS Datagrams</td>
-<td class="right">July 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders</td>
-<td class="center">Expires 25 January 2027</td>
+<td class="center">Expires 23 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1058,17 +1055,17 @@ svg {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">SCHC</dd>
+<dd class="workgroup">Static Context Header Compression</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-lenders-schc-dtls-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-07-24" class="published">24 July 2026</time>
+<time datetime="2026-10-20" class="published">20 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-01-25">25 January 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-23">23 April 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1093,7 +1090,7 @@ svg {
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-lenders-schc-dtls/">https://datatracker.ietf.org/doc/draft-lenders-schc-dtls/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        SCHC Working Group mailing list (<span><a href="mailto:schc@ietf.org">mailto:schc@ietf.org</a></span>),
+        Static Context Header Compression Working Group mailing list (<span><a href="mailto:schc@ietf.org">mailto:schc@ietf.org</a></span>),
         which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/schc/">https://mailarchive.ietf.org/arch/browse/schc/</a></span>.
         Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/schc/">https://www.ietf.org/mailman/listinfo/schc/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
@@ -1118,7 +1115,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1237,11 +1234,11 @@ versions of DTLS are not supported.<a href="#section-3-1" class="pilcrow">¶</a>
         </h3>
 <p id="section-3.1-1"><span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span>, <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>, and <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> defines the format of DTLS packets in the presentation
 language defined in <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>, starting from the DTLS record layer. Multiple DTLS records may be
-put into a single datagrame. However, for the purposes of SCHC it is <span class="bcp14">RECOMMENDED</span>, to have one record
+put into a single datagrame However, for the purposes of SCHC it is <span class="bcp14">RECOMMENDED</span>, to have one record
 per datagram. Otherwise, fitting one packet type into a single group might not become difficult.
 Some fields mentioned in <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> for the record layer are either described in <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> or
-<span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>. The fields of the DTLS record layer are as follows, we cite the appropriate document of
-its definition below.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>. The fields of the DTLS 1.2 record layer are as follows and also appear in the DTLS 1.3
+Plaintext Structure. We cite the appropriate document of its definition below.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
             <p id="section-3.1-2.1.1"><code>type</code>: An 8-bit field that encodes the higher-level protocol used to process the enclosed
@@ -1249,9 +1246,9 @@ fragment. Its values are assigned by IANA in the TLS ContentType registry as per
 </li>
           <li class="normal" id="section-3.1-2.2">
             <p id="section-3.1-2.2.1"><code>version</code>: A 16-bit field that defines the version of the DTLS protocol. It <span class="bcp14">MUST</span> be set to {254,
-253} for both DTLS 1.2 <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> and DTLS 1.3 (where it is included for legacy purposes) except
-for the initial ClientHello with DTLS 1.3 where it also may be {254, 255} for compatibility
-    purposes <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+253} for both DTLS 1.2 <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> and the DTLS 1.3 handshake (where it is
+included for legacy purposes) except for the initial ClientHello with DTLS
+1.3 where it also may be {254, 255} for compatibility purposes <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.3">
             <p id="section-3.1-2.3.1"><code>epoch</code>: A 16-bit field that is a counter of cipher state changes in DTLS 1.2 <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> and the
@@ -1275,6 +1272,32 @@ lengths. Since the compression of the <code>fragment</code> field is dependent o
 possible to create one rule for all DTLS records. The fields of <code>fragment</code> are specified in the
 following sections If another record follows <code>fragment</code> it should be made clear using <em>var</em> length
 of a payload field within <code>fragment</code>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">The DTLS 1.3 Unified Header (see <span><a href="https://rfc-editor.org/rfc/rfc9147#section-4" class="relref">Section 4</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>) <span class="bcp14">SHALL</span> be compressed as follows:<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-5.1">
+            <p id="section-3.1-5.1.1">Fixed Bits always starts with 001 and the next 3 bits express the presence of the fields below.
+Only the E flags are needed to express the epoch.
+As such they <span class="bcp14">SHOULD</span> be compressed with the Not-Sent or LSB CDA, its length <span class="bcp14">MUST</span> be fixed in that case.
+The Value-Sent CDA is also possible.
+However, in that case the three redundant 001 bits are always sent.<a href="#section-3.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-5.2">
+            <p id="section-3.1-5.2.1">Connection ID, if present, <span class="bcp14">MAY</span> be compressed with a Value-Sent CDA or LSB CDA, its length <span class="bcp14">MUST</span> be fixed in that case <span class="cref" id="connection-id-length">TBD find out if this can be assumed universally.<span class="crefSource">—Martine Lenders</span></span>.
+Its presence can be infered from the C bit in the Fixed Bits field
+The Matching Operator for the Fixed Bits field <span class="bcp14">MUST</span> be set accordingly.
+<span class="cref" id="quic-cid-elision">Look into CID elision again (https://github.com/miri64/draft-schc-dtls/issues/1#issuecomment-5070802956).</span><a href="#section-3.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-5.3">
+            <p id="section-3.1-5.3.1">Sequence Number <span class="bcp14">MAY</span> be compressed with a Value-Sent CDA or LSB CDA, its length being inferred from the S bit in the Fixed Bit field.
+The Matching Operator for the Fixed Bits field <span class="bcp14">MUST</span> be set accordingly.<a href="#section-3.1-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-5.4">
+            <p id="section-3.1-5.4.1">Length, if present, <span class="bcp14">SHOULD</span> be compressed with the Compute-* CDA.
+Its presence can be infered from the L bit in the Fixed Bits field
+The Matching Operator for the Fixed Bits field <span class="bcp14">MUST</span> be set accordingly.<a href="#section-3.1-5.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.1-6">The encrypted record that follows <span class="bcp14">MUST</span> be sent as is but may contain more SCHC strata in its plaintext.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="handshake-messages">
@@ -1350,7 +1373,7 @@ of a payload field within <code>fragment</code>.<a href="#section-3.1-3" class="
 <dl class="references">
 <dt id="I-D.ietf-schc-8824-update">[I-D.ietf-schc-8824-update]</dt>
         <dd>
-<span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Toutain, L.</span>, <span class="refAuthor">Martínez, I.</span>, and <span class="refAuthor">A. Minaburo</span>, <span class="refTitle">"Static Context Header Compression (SCHC) for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-schc-8824-update-09</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-schc-8824-update-09">https://datatracker.ietf.org/doc/html/draft-ietf-schc-8824-update-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Toutain, L.</span>, <span class="refAuthor">Martínez, I.</span>, and <span class="refAuthor">A. Minaburo</span>, <span class="refTitle">"Static Context Header Compression (SCHC) for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-schc-8824-update-10</span>, <time datetime="2026-07-26" class="refDate">26 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-schc-8824-update-10">https://datatracker.ietf.org/doc/html/draft-ietf-schc-8824-update-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7252">[RFC7252]</dt>
         <dd>
