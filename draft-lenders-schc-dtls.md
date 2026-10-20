@@ -59,6 +59,8 @@ This document specifies a compression scheme for Datagram Transport Layer Securi
 
 --- middle
 
+{:mlenders: source="—Martine Lenders"}
+
 # Introduction
 
 Datagram Transport Layer Security (DTLS) is an essential part of many IoT deployments.
@@ -92,18 +94,18 @@ versions of DTLS are not supported.
 
 {{-dtls12}}, {{-dtls13}}, and {{-tls13}} defines the format of DTLS packets in the presentation
 language defined in {{-tls13}}, starting from the DTLS record layer. Multiple DTLS records may be
-put into a single datagrame. However, for the purposes of SCHC it is RECOMMENDED, to have one record
+put into a single datagrame However, for the purposes of SCHC it is RECOMMENDED, to have one record
 per datagram. Otherwise, fitting one packet type into a single group might not become difficult.
 Some fields mentioned in {{-dtls13}} for the record layer are either described in {{-dtls12}} or
-{{-tls13}}. The fields of the DTLS record layer are as follows, we cite the appropriate document of
-its definition below.
+{{-tls13}}. The fields of the DTLS 1.2 record layer are as follows and also appear in the DTLS 1.3
+Plaintext Structure. We cite the appropriate document of its definition below.
 
 * `type`: An 8-bit field that encodes the higher-level protocol used to process the enclosed
   fragment. Its values are assigned by IANA in the TLS ContentType registry as per {{-tls13}}.
 * `version`: A 16-bit field that defines the version of the DTLS protocol. It MUST be set to {254,
-  253} for both DTLS 1.2 {{-dtls12}} and DTLS 1.3 (where it is included for legacy purposes) except
-  for the initial ClientHello with DTLS 1.3 where it also may be {254, 255} for compatibility
-      purposes {{-dtls13}}.
+  253} for both DTLS 1.2 {{-dtls12}} and the DTLS 1.3 handshake (where it is
+  included for legacy purposes) except for the initial ClientHello with DTLS
+  1.3 where it also may be {254, 255} for compatibility purposes {{-dtls13}}.
 * `epoch`: A 16-bit field that is a counter of cipher state changes in DTLS 1.2 {{-dtls12}} and the
   least significant 2 bytes of the connection epoch value in DTLS 1.3 {{-dtls13}}.
 * `sequence_number`: A 48-bit filed that is the sequence number for the given record {{-dtls12}}.
@@ -118,6 +120,31 @@ lengths. Since the compression of the `fragment` field is dependent on `type`, h
 possible to create one rule for all DTLS records. The fields of `fragment` are specified in the
 following sections If another record follows `fragment` it should be made clear using _var_ length
 of a payload field within `fragment`.
+
+
+The DTLS 1.3 Unified Header (see {{Section 4 of -dtls13}}) SHALL be compressed as follows:
+
+- Fixed Bits always starts with 001 and the next 3 bits express the presence of the fields below.
+  Only the E flags are needed to express the epoch.
+  As such they SHOULD be compressed with the Not-Sent or LSB CDA, its length MUST be fixed in that case.
+  The Value-Sent CDA is also possible.
+  However, in that case the three redundant 001 bits are always sent.
+- Connection ID, if present, MAY be compressed with a Value-Sent CDA or LSB CDA, its length MUST be fixed in that case [^connection-id-length].
+  Its presence can be infered from the C bit in the Fixed Bits field
+  The Matching Operator for the Fixed Bits field MUST be set accordingly.
+  [^quic-cid-elision]
+- Sequence Number MAY be compressed with a Value-Sent CDA or LSB CDA, its length being inferred from the S bit in the Fixed Bit field.
+  The Matching Operator for the Fixed Bits field MUST be set accordingly.
+- Length, if present, SHOULD be compressed with the Compute-* CDA.
+  Its presence can be infered from the L bit in the Fixed Bits field
+  The Matching Operator for the Fixed Bits field MUST be set accordingly.
+
+The encrypted record that follows MUST be sent as is but may contain more SCHC strata in its plaintext.
+
+[^connection-id-length]: TBD find out if this can be assumed universally.
+{: mlenders}
+
+[^quic-cid-elision]: Look into CID elision again (https://github.com/miri64/draft-schc-dtls/issues/1#issuecomment-5070802956).
 
 ## Handshake Messages
 
